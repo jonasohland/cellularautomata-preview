@@ -1,4 +1,8 @@
-.button {
+p {
+    font-family: Inconsolata;
+}
+
+button {
     background-color: transparent;
     border-width: 2px;
     border-color: black;
@@ -13,26 +17,27 @@
     font-family: Inconsolata;
 }
 
-.button:hover {
+button:hover {
     background-color: black;
     border-color: transparent;
     color: white;
 }
 
-.button:active {
-    background-color: magenta;
+button:active {
+    background-color: royalblue;
 }
 
-.button:focus {
+button:focus {
     outline: 0;
 }
 
-.slider {
+input[type='range'] {
     -webkit-appearance: none;  /* Override default CSS styles */
+    overflow: hidden;
     appearance: none;
     width: 200px; 
     height: 28px; 
-    background: transparent; 
+    background-color: none;
     border-style: solid;
     border-width: 2px;
     border-color: black;
@@ -42,28 +47,79 @@
     transition: opacity .2s;
 }
 
-.slider:hover {
-    background: lightgray;
-}
-
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
     appearance: none;
-    width: 20px; /* Set a specific slider handle width */
-    height: 20px; /* Slider handle height */
-    background: black; /* Green background */
-    cursor: pointer; /* Cursor on hover */
-    outline:none;
+    width: 10px;
+    height: 28px;
+    background: black;
+    box-shadow: -100px 0 0 100px royalblue;
+    cursor: ew-resize;
+    outline: none;
     border-radius: 0%;
     border-style: solid;
+    border-width: 0px;
 }
   
-.slider::-moz-range-thumb {
-    width: 20px; 
-    height: 20px; 
-    background: black; 
-    cursor: pointer; 
+input[type='range']::-moz-range-thumb {
+    width: 10px;
+    height: 28px;
+    background: black;
+    box-shadow: -100px 0 0 100px royalblue;
+    cursor: ew-resize;
     border-radius: 0%;
     border-style: solid;
     outline: none;
+}
+
+
+input[type="range"]::-moz-range-progress {
+    background-color: royalblue; 
+  }
+
+/*input[type='range']::-webkit-slider-runnable-track {
+    background-color: royalblue;
+} */
+/*
+input[type='range']::-moz-range-track {
+    background-color: royalblue;
+} */
+
+.flex {
+    display: flex;
+}
+
+.col {
+    flex-direction: column;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.center {
+    align-self: center;
+}
+
+.my-0 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.my-2 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.mb-2 {
+    margin-bottom: 10px;
+}
+
+.mx-2 {
+    margin-left: 10px;
+    margin-right: 10px;
 }
