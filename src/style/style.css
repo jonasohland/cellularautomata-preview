@@ -4,15 +4,12 @@
     border-color: black;
     border-style: solid;
     color: black;
-    padding-top: 7px;
-    padding-bottom: 7px;
     padding-right: 10px;
     padding-left: 10px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
-    margin-bottom: 15px;
-    margin-right: 25px;
+    height: 32px;
 }
 
 .button:hover {
@@ -27,4 +24,45 @@
 
 .button:focus {
     outline: 0;
+}
+
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 200px; 
+    height: 28px; 
+    background: transparent; 
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    outline: none; 
+    opacity: 0.7; 
+    -webkit-transition: .2s; 
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    background: lightgray;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 20px; /* Set a specific slider handle width */
+    height: 20px; /* Slider handle height */
+    background: black; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    outline:none;
+    border-radius: 0%;
+    border-style: solid;
+}
+  
+.slider::-moz-range-thumb {
+    width: 20px; 
+    height: 20px; 
+    background: black; 
+    cursor: pointer; 
+    border-radius: 0%;
+    border-style: solid;
+    outline: none;
 }

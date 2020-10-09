@@ -6,7 +6,6 @@ import html from '../app.html'
 import '../style/style.css'
 import '../style/grid.css'
 
-
 window.onload = () => {
 
     document.getElementById('root').innerHTML = html;
@@ -35,4 +34,8 @@ window.onload = () => {
 
 window.startaudio = function() {
 
+}
+
+window.setspeed = function(event) {
+    console.log(event);
 }

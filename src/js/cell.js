@@ -9,6 +9,9 @@ export default class Cell {
     constructor(element, grid) {
         this._element = element
         this._grid = grid;
+        this._element.onclick = () => {
+            this.secondary(true);
+        }
     }
 
     /**
@@ -47,6 +50,9 @@ export default class Cell {
                 this._element.classList.remove(cssclass);
         }
     }
+
+    
+    _alive = false;
 
     /** @type {Grid} */
     _grid
