@@ -1,0 +1,42 @@
+.grid-container {
+
+    --rows: 12;
+    --cols: 17;
+    --width: 750px;
+    --spacing: 17;
+    --percent-unit: 1%;
+
+    display: grid;
+    
+    margin: 40px;
+    
+    width: var(--width);
+    height: calc(var(--rows) / var(--cols) * var(--width));
+    
+    grid-template-rows: repeat(var(--rows), calc((100 - var(--spacing)) / var(--rows) * var(--percent-unit)));
+    grid-template-columns: repeat(var(--cols), calc((100 - var(--spacing)) / var(--cols) * var(--percent-unit)));
+    row-gap: calc(var(--spacing) / (var(--rows) - 1) * var(--percent-unit));
+    column-gap: calc(var(--spacing) / (var(--cols) - 1) * var(--percent-unit));
+}
+
+.grid-item {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    border-style: solid;
+    border-color: grey;
+    border-width: 2px;
+    border-radius: 6px;
+    transition: background-color 0.5s;
+    transition-timing-function: cubic-bezier(0, 0, .05, 1);
+}
+
+.grid-item--active-primary {
+    background-color: rgba(255, 120, 58, 0.425);
+    transition: background-color 0s;
+}
+
+.grid-item--active-secondary {
+    background-color: magenta;
+    transition: background-color 0s;
+}
