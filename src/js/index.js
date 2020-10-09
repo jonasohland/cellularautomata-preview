@@ -1,10 +1,10 @@
 import * as Tone from 'tone'
 import Grid from './grid'
 
-import html from './app.html'
+import html from '../app.html'
 
-import './style/style.css'
-import './style/grid.css'
+import '../style/style.css'
+import '../style/grid.css'
 
 
 window.onload = () => {
