@@ -6,6 +6,8 @@ import html from '../app.html'
 import '../style/style.css'
 import '../style/grid.css'
 
+import 'inconsolata-fontface'
+
 window.onload = () => {
 
     document.getElementById('root').innerHTML = html;
