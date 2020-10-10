@@ -1,14 +1,20 @@
+body {
+    background-color: black;
+}
+
+.grid-footer {
+    width: 50vw;
+}
+
 .grid-container {
 
     --rows: 12;
     --cols: 17;
-    --width: 55vw;
+    --width: 50vw;
     --spacing: 17;
     --percent-unit: 1%;
 
     display: grid;
-    
-    margin: 40px;
     
     width: var(--width);
     height: calc(var(--rows) / var(--cols) * var(--width));

@@ -5,6 +5,11 @@ import html from '../app.html'
 
 import '../style/style.css'
 import '../style/grid.css'
+import '../style/helpers.css'
+
+import '@fortawesome/fontawesome-free/css/all.css'
+
+import { text_de, text_en } from './text';
 
 import 'inconsolata-fontface'
 
@@ -27,17 +32,38 @@ window.onload = () => {
 
         last_col = current_col;
         
-        if (++current_col == grid.columns()) 
+        if (++current_col == grid.columns()) {
             current_col = 0;
+        }
 
     }, 250);
-    
-}
 
-window.startaudio = function() {
+    window.resetcells = () => {
+        grid.killAllCells();
+    };
 
-}
+    window.startaudio = () => {
+        console.log('startaudio');
+    }
 
-window.setspeed = function(event) {
-    console.log(event);
+    window.stopplayback = () => {
+        console.log('stopplayback');
+    }
+
+    window.setspeed = function(event) {
+        console.log(event);
+    }
+
+    let newp = document.createElement('p');
+    newp.innerText = text_de;
+
+    document.getElementById('maintextnode').appendChild(newp);
+
+    window.textselect_de = () => {
+        newp.innerText = text_de;
+    }
+
+    window.textselect_en = () => {
+        newp.innerText = text_en;
+    }
 }

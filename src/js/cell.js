@@ -6,20 +6,46 @@ export default class Cell {
      * @param {HTMLDivElement} element
      * @param {Grid} grid 
      */
-    constructor(element, grid) {
+    constructor(element, grid, row, col) {
+
         this._element = element
         this._grid = grid;
+
+        this._row = row;
+        this._col = col;
+
         this._element.onclick = () => {
-            this.secondary(true);
+            if (this.isAlive()) 
+                this.kill();
+            else
+                this.revive();
         }
     }
 
-    /**
-     * 
-     * @param {paper.Rectangle} bounds 
-     */
-    setBounds(bounds) {
-        this._bounds = bounds;
+    revive() {
+        if (!this._alive) {
+            this.secondary(true);
+            this._alive = true;
+        }
+    }
+
+    kill() {
+        if (this._alive) {
+            this.secondary(false);
+            this._alive = false;
+        }
+    }
+
+    isAlive() {
+        return this._alive;
+    }
+
+    row() {
+        return this._row;
+    }
+
+    col() {
+        return this._col;
     }
 
     /**
@@ -51,6 +77,8 @@ export default class Cell {
         }
     }
 
+    _row = -1;
+    _col = -1;
     
     _alive = false;
 

@@ -1,6 +1,10 @@
-p {
-    font-family: Inconsolata;
-}
+p { font-family: Inconsolata; }
+
+h1 { font-family: Inconsolata; }
+h2 { font-family: Inconsolata; }
+h3 { font-family: Inconsolata; }
+
+a { color: darkgray }
 
 button {
     background-color: transparent;
@@ -69,13 +73,14 @@ input[type='range']::-moz-range-thumb {
     cursor: ew-resize;
     border-radius: 0%;
     border-style: solid;
+    border-width: 0px;
     outline: none;
 }
 
 
 input[type="range"]::-moz-range-progress {
     background-color: royalblue; 
-  }
+}
 
 /*input[type='range']::-webkit-slider-runnable-track {
     background-color: royalblue;
@@ -85,41 +90,3 @@ input[type='range']::-moz-range-track {
     background-color: royalblue;
 } */
 
-.flex {
-    display: flex;
-}
-
-.col {
-    flex-direction: column;
-}
-
-.row {
-    flex-direction: row;
-}
-
-.justify-center {
-    justify-content: center;
-}
-
-.center {
-    align-self: center;
-}
-
-.my-0 {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.my-2 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.mb-2 {
-    margin-bottom: 10px;
-}
-
-.mx-2 {
-    margin-left: 10px;
-    margin-right: 10px;
-}

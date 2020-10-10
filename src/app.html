@@ -1,22 +1,46 @@
-<div style="display:flex; flex-direction: column;">
-    <div style="display: flex; align-content: center; justify-content: center;">
-        <div style="margin-top: 40px; display: flex; flex-direction: column;">
-            <button onclick="startaudio()" class="button mb-2">Other button</button>
-            <button onclick="startaudio()" class="button my-2">Other button</button>
-            <button onclick="startaudio()" class="button my-2">Other button</button>
+<div class="flex col">
+    <div class="flex justify-center mt-2">
+        <div class="flex col px-2 py-2 mr-2 bg-white">
+            <button onclick="resetcells()" class="button mb-2">reset</button>
+            <button onclick="startaudio()" class="button my-2">
+                Other button
+            </button>
+            <button onclick="startaudio()" class="button my-2">
+                Other button
+            </button>
         </div>
-        <div class="grid-container" id="grid">
+        <div>
+            <div class="grid-container bg-white px-2 py-2" id="grid"></div>
+            <div class="grid-footer flex bg-white px-2 mt-2">
+                <button onclick="startaudio()" class="mx-2 my-2 center">
+                    <i class="fas fa-play pr-1"></i>Start
+                </button>
+                <button onclick="stopplayback()" class="mx-2 my-2 center">
+                    <i class="fas fa-stop pr-1"></i>Stop
+                </button>
+                <span class="flex row">
+                    <p class="center mx-2 my-2">Speed</p>
+                    <input
+                        class="mx-2 my-2"
+                        type="range"
+                        oninput="setspeed(this.value)"
+                    />
+                </span>
+            </div>
         </div>
-        <div style="margin-top: 40px;">
-            <button onclick="startaudio()" class="button">Start Audio</button>
+        <div class="flex col px-3 py-3 ml-2 bg-white" style="max-width: 400px">
+            <div>
+                <h2>TXT</h2>
+                <div id="maintextnode">
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div>
+                <p class="text--deactivated">
+                    <a href="javascript:void(0)" onclick="textselect_en()">en</a> |
+                    <a href="javascript:void(0)" onclick="textselect_de()">de</a>
+                </p>
+            </div>
         </div>
-    </div>
-    <div class="flex justify-center">
-        <span class="flex row">
-            <p class="center mx-2 my-2">Speed</p>
-            <input class="mx-2 my-2" type="range" oninput="setspeed(this.value)"></input>
-        </span>
-        <button onclick="startaudio()" class="mx-2 my-2 center">Start</button>
-        <button onclick="startaudio()" class="mx-2 my-2 center">Stop</button>
     </div>
 </div>
