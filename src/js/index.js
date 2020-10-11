@@ -12,6 +12,8 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import { text_de, text_en } from './text';
 
 import 'inconsolata-fontface'
+import Automata from './cellular_automata'
+import { Player, PlayMode } from './player'
 
 window.onload = () => {
 
@@ -19,24 +21,24 @@ window.onload = () => {
 
     const grid_container = document.getElementById('grid');
     const grid = new Grid(grid_container);
+    const automata = new Automata(grid);
+    const player = new Player(automata);
 
-    let current_col = 0;
-    let last_col = 0;
+    player.setPlayMode(1);
+    player.startPlaying();
 
-    setInterval(() => {
-
-        for (let i = 0; i < grid.rows(); ++i) {
-            grid.cell(i, last_col).primary(false);
-            grid.cell(i, current_col).primary(true);
+    const constrainbutton = document.getElementById('constrainbutton');
+    window.toggleplaymode = () => {
+        if (player.playMode() == PlayMode.NORMAL) {
+            player.setPlayMode(PlayMode.CONSTRAINED);
+            constrainbutton.classList.add('b-toggle-on');
         }
-
-        last_col = current_col;
-        
-        if (++current_col == grid.columns()) {
-            current_col = 0;
+        else {
+            player.setPlayMode(PlayMode.NORMAL);
+            if (constrainbutton.classList.contains('b-toggle-on'))
+                constrainbutton.classList.remove('b-toggle-on');
         }
-
-    }, 250);
+    }
 
     /* left-side control elements */
     
@@ -52,8 +54,8 @@ window.onload = () => {
         console.log('stopplayback');
     }
 
-    window.setspeed = function(event) {
-        console.log(event);
+    window.setspeed = function(speed) {
+        player.setSpeed(speed);
     }
 
 

@@ -56,5 +56,6 @@ body {
     border-radius: 5px;
     border-color: rgb(255, 208, 0);
     border-width: 3px;
+    border-style: solid;
 }
 

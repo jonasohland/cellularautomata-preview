@@ -37,6 +37,10 @@ button:focus {
     outline: 0;
 }
 
+.b-toggle-on {
+    background-color: rgb(255, 208, 0);
+}
+
 input[type='range'] {
     -webkit-appearance: none;  /* Override default CSS styles */
     overflow: hidden;
@@ -101,6 +105,11 @@ select {
     font-size: 16px;
 }
 
+select:hover {
+    background-color: black;
+    color: white;
+}
+
 select:focus {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -121,5 +130,5 @@ select:focus {
     position: absolute;
     right: 15px;
     top: 11px;
-    color: rgb(0, 0, 0);
+    color: inherit;
 }
