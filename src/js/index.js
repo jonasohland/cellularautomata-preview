@@ -24,8 +24,7 @@ window.onload = () => {
     const automata = new Automata(grid);
     const player = new Player(automata);
 
-    player.setPlayMode(1);
-    player.startPlaying();
+    player.setPlayMode(PlayMode.CONSTRAINED);
 
     const constrainbutton = document.getElementById('constrainbutton');
     window.toggleplaymode = () => {
@@ -47,7 +46,7 @@ window.onload = () => {
     };
 
     window.startaudio = () => {
-        console.log('startaudio');
+        player.startPlaying();
     }
 
     window.stopplayback = () => {

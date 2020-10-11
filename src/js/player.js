@@ -32,8 +32,12 @@ export class Player {
         }).toDestination();
     }
 
-    startPlaying(play_mode) {
-        this._play_cb();
+    startPlaying() {
+        if (this._play_timeout == null) {
+            Tone.context.resume().then(() => {
+                this._play_cb();
+            });
+        }
     }
 
     stopPlaying() {
@@ -56,6 +60,7 @@ export class Player {
     }
 
     _play_cb() {
+
         console.log("play");
         this._advance_play_head();
 
@@ -64,7 +69,7 @@ export class Player {
         
         console.log(notes_to_play);
 
-        this._synth.triggerAttackRelease(notes_to_play, 2.)
+        this._synth.triggerAttackRelease(notes_to_play, 2.);
 
         this._play_timeout = setTimeout(this._play_cb.bind(this), this._tick_time);
     }
