@@ -38,6 +38,8 @@ window.onload = () => {
 
     }, 250);
 
+    /* left-side control elements */
+    
     window.resetcells = () => {
         grid.killAllCells();
     };
@@ -53,6 +55,9 @@ window.onload = () => {
     window.setspeed = function(event) {
         console.log(event);
     }
+
+
+    /* right-side text element language selection */
 
     let newp = document.createElement('p');
     newp.innerText = text_de;

@@ -1,11 +1,14 @@
 <div class="flex col">
     <div class="flex justify-center mt-2">
-        <div class="flex col px-2 py-2 mr-2 bg-white">
-            <button onclick="resetcells()" class="button mb-2">reset</button>
-            <button onclick="startaudio()" class="button my-2">
-                Other button
-            </button>
-            <button onclick="startaudio()" class="button my-2">
+        <div class="flex col px-1 py-2 mr-2 bg-white">
+            <button onclick="resetcells()" class="mb-2">reset</button>
+            <div class="select-wrapper mb-2">
+                <select>
+                    <option value="0">Rule 1</option>
+                    <option value="1">Rule 2</option>
+                </select>
+            </div>
+            <button onclick="startaudio()" class="mb-2">
                 Other button
             </button>
         </div>

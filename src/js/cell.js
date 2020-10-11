@@ -52,7 +52,15 @@ export default class Cell {
      * @param {boolean} active 
      */
     primary(active) {
-        this._modify_class(active, 'grid-item--active-primary');
+        if (active) {
+            if (this._alive)
+                this._modify_class(true, 'grid-item--active-full');
+            else
+                this._modify_class(true, 'grid-item--active-primary');
+        } else {
+            this._modify_class(false, 'grid-item--active-full');
+            this._modify_class(false, 'grid-item--active-primary');
+        }
     }
 
     /**
