@@ -26,6 +26,7 @@ export default class Cell {
         if (!this._alive) {
             this.secondary(true);
             this._alive = true;
+            this._alive_next = true;
         }
     }
 
@@ -33,6 +34,22 @@ export default class Cell {
         if (this._alive) {
             this.secondary(false);
             this._alive = false;
+            this._alive_next = false;
+        }
+    }
+
+    /** @param {boolean} alive */
+    setNextState(alive) {
+        this._alive_next = alive;
+    }
+
+    commitState() {
+        if (this._alive_next) {
+            if (!this.isAlive())
+                this.revive()
+        } else {
+            if (this.isAlive())
+                this.kill();
         }
     }
 
@@ -89,6 +106,7 @@ export default class Cell {
     _col = -1;
     
     _alive = false;
+    _alive_next = false;
 
     /** @type {Grid} */
     _grid

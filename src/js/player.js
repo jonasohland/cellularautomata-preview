@@ -66,8 +66,6 @@ export class Player {
 
         let cells_to_play = this._automata._grid.col(this._current_col).filter(cll => cll.isAlive());
         let notes_to_play = cells_to_play.map(cl => cl.row()).map(num => this._scale[num]);
-        
-        console.log(notes_to_play);
 
         this._synth.triggerAttackRelease(notes_to_play, 2.);
 
@@ -83,8 +81,10 @@ export class Player {
                 ++this._current_col;
             else {
                 let first_alive = this._automata.nextColWithAliveCells(0);
-                if (first_alive != -1)
+                if (first_alive != -1) {
                     this._current_col = first_alive;
+                    this._gen_loop();
+                }
                 else
                     this._advance_play_head_default();
             }
