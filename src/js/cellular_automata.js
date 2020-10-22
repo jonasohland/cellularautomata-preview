@@ -1,6 +1,6 @@
 import Grid from './grid';
 import Cell from './cell';
-import { readOnly } from 'tone/build/esm/core/util/Interface';
+
 
 export class Rules {
 
@@ -110,18 +110,46 @@ export default class Automata {
         return this._grid._cells.filter(cell => cell.isAlive()).length > 0;
     }
 
-    nextColWithAliveCells(search_start_col)
+    nextColWithAliveCells(search_start_col, search_bwd)
     {
         if (search_start_col >= this._grid.columns())
             return -1;
 
-        for (let i = search_start_col; i < this._grid.columns(); ++i) {
-            if (this._grid.col(i).filter(cll => cll.isAlive()).length > 0)
-                return i;
-        }
+        if (search_bwd) {
+            for (let i = search_start_col; i <= 0; --i) {
+                if (this._grid.col(i).filter(cll => cll.isAlive()).length > 0)
+                    return i;
+            }
+        } else {
+            for (let i = search_start_col; i < this._grid.columns(); ++i) {
+                if (this._grid.col(i).filter(cll => cll.isAlive()).length > 0)
+                    return i;
+            }
+        } 
 
         return -1;
     }
+
+    /*
+        byte    | size  | desc
+        --------------------------------
+        0       | 1     | version
+        1       | 1     | scale
+        2       | 1     | play option bits
+        3       | 1     | reserved
+        4       | 4     | (float) playback_speed
+        8       | 4     | (uint32) rows
+        12      | 4     | (uint32) cols
+        16      | (r*c) | data
+
+        play options: 
+        
+        bit     | desc
+        -----------------
+        0       | palindrome
+        1       | constrain
+    */
+
 
     /** @type {Grid} */
     _grid

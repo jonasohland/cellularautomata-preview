@@ -3,21 +3,22 @@ body {
 }
 
 .grid-footer {
-    width: 50vw;
+    width: 60vw;
 }
 
 .grid-container {
 
     --rows: 12;
     --cols: 17;
-    --width: 50vw;
-    --spacing: 17;
+    --width: 60vw;
+    --spacing: 11;
     --percent-unit: 1%;
 
     display: grid;
     
     width: var(--width);
     height: calc(var(--rows) / var(--cols) * var(--width));
+    /* height: 90vh; */
     
     grid-template-rows: repeat(var(--rows), calc((100 - var(--spacing)) / var(--rows) * var(--percent-unit)));
     grid-template-columns: repeat(var(--cols), calc((100 - var(--spacing)) / var(--cols) * var(--percent-unit)));

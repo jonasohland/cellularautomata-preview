@@ -1,17 +1,26 @@
 import Automata from './cellular_automata';
 import * as Tone from 'tone';
+import scales from '../scales.json'
+
+console.log(scales);
 
 export const PlayMode = {
     NORMAL: 0,  
     CONSTRAINED: 1 
 }
 
+export const PlayDirection = {
+    FORWARD: 0,
+    PALINDROME: 1
+}
+
 class Synth {
 
 }
 
+console.log(scales[0]);
+
 export class Player {
-    
 
     /**
      * 
@@ -26,9 +35,6 @@ export class Player {
                 A2: "A2.mp3",
             },
             baseUrl: "https://tonejs.github.io/audio/casio/",
-            onload: () => {
-                sampler.triggerAttackRelease(["C1", "E1", "G1", "B1"], 0.5);
-            }
         }).toDestination();
     }
 
@@ -40,23 +46,50 @@ export class Player {
         }
     }
 
-    stopPlaying() {
-
+    stopPlaying() 
+    {
+        if (this._play_timeout) {
+            clearTimeout(this._play_timeout);
+            this._play_timeout = null;
+        }
     }
 
     /** @param {number} mode */
-    setPlayMode(mode) {
+    setPlayMode(mode) 
+    {
         this._play_mode = mode;
     }
+
+    enablePalindrome() 
+    {
+        this._palindrome = 1;
+    } 
+
+    disablePalindrome() 
+    {
+        this._palindrome = 0;
+    } 
 
     playMode()
     {
         return this._play_mode;
     }
 
+    isPlaying()
+    {
+        return this._play_timeout != null;
+    }
+
     setSpeed(speed) {
         this._tick_time = Math.pow(20, (100 - speed) / 100) * 50;
         console.log(this._tick_time);
+    }
+
+    reset()
+    {
+        this._clear_play_head();
+        this._current_col = 0;
+        this._render_play_head();
     }
 
     _play_cb() {
@@ -65,7 +98,9 @@ export class Player {
         this._advance_play_head();
 
         let cells_to_play = this._automata._grid.col(this._current_col).filter(cll => cll.isAlive());
-        let notes_to_play = cells_to_play.map(cl => cl.row()).map(num => this._scale[num]);
+        let notes_to_play = cells_to_play.map(cl => cl.row()).map(num => scales[this._selected_scale].scale[num]);
+
+        console.log(notes_to_play);
 
         this._synth.triggerAttackRelease(notes_to_play, 2.);
 
@@ -77,16 +112,23 @@ export class Player {
         this._clear_play_head();
 
         if (this._play_mode == PlayMode.CONSTRAINED) {
-            if (this._automata.nextColWithAliveCells(this._current_col + 1) != -1) 
-                ++this._current_col;
+
+            if (this._palindrome) {
+
+            }
             else {
-                let first_alive = this._automata.nextColWithAliveCells(0);
-                if (first_alive != -1) {
-                    this._current_col = first_alive;
-                    this._gen_loop();
+                // next alive cells ahead
+                if (this._automata.nextColWithAliveCells(this._current_col + 1) != -1) 
+                    ++this._current_col;
+                else {
+                    let first_alive = this._automata.nextColWithAliveCells(0);
+                    if (first_alive != -1) {
+                        this._current_col = first_alive;
+                        this._gen_loop();
+                    }
+                    else
+                        this._advance_play_head_default();
                 }
-                else
-                    this._advance_play_head_default();
             }
         } else 
             this._advance_play_head_default();
@@ -116,9 +158,14 @@ export class Player {
     }
 
     _play_mode = 0;
+    _palindrome = 0;
+    
+    /** @type */
     _play_timeout = null;
 
     _tick_time = 200;
+
+    _current_direction = 1;
     _current_col = 0;
 
     /** @type {Automata} */
@@ -126,6 +173,5 @@ export class Player {
 
     _synth; 
 
-    _scale = ['C3', 'Eb3', 'F3', 'G3', 'B3', 'C4', 'Eb4', 'F4', 'G4', 'B4', 'C5', 'Eb5', 'F5', 'G5', 'B5'];
-
+    _selected_scale = 0;
 }

@@ -65,6 +65,21 @@ export default class Cell {
         return this._col;
     }
 
+    pushBackup() {
+        this._alive_backup = this._alive;
+    }
+
+    getBackup() {
+        return this._alive_backup;
+    }
+
+    popBackup() {
+        if (this._alive_backup)
+            this.revive();
+        else
+            this.kill();
+    }
+
     /**
      * @param {boolean} active 
      */
@@ -107,6 +122,7 @@ export default class Cell {
     
     _alive = false;
     _alive_next = false;
+    _alive_backup = false;
 
     /** @type {Grid} */
     _grid

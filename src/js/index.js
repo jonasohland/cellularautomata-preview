@@ -1,18 +1,17 @@
-import * as Tone from 'tone'
-import Grid from './grid'
+import Grid from './grid';
 
-import html from '../app.html'
+import html from '../app.html';
 
-import '../style/style.css'
-import '../style/grid.css'
-import '../style/helpers.css'
+import '../style/style.css';
+import '../style/grid.css';
+import '../style/helpers.css';
 
-import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/css/all.css';
 
-import { text_de, text_en } from './text';
+import 'inconsolata-fontface';
+import Automata from './cellular_automata';
+import Sharing from './sharing';
 
-import 'inconsolata-fontface'
-import Automata from './cellular_automata'
 import { Player, PlayMode } from './player'
 
 window.onload = () => {
@@ -23,6 +22,7 @@ window.onload = () => {
     const grid = new Grid(grid_container);
     const automata = new Automata(grid);
     const player = new Player(automata);
+    const sharing = new Sharing(player, automata, grid);
 
     player.setPlayMode(PlayMode.CONSTRAINED);
 
@@ -39,28 +39,67 @@ window.onload = () => {
         }
     }
 
+    let url = new URL(document.URL);
+
+    if(url.searchParams.get('p')) {
+        sharing.import(url.searchParams.get('p'))
+    }
+
+
     /* left-side control elements */
     
     window.resetcells = () => {
-        grid.killAllCells();
+        grid.reset();
     };
 
+    window.clearcells = () => {
+        grid.clear();
+    }
+
     window.startaudio = () => {
-        player.startPlaying();
+        if (!player.isPlaying()) {
+            grid.backup();
+            player.startPlaying();
+        }
     }
 
     window.stopplayback = () => {
-        console.log('stopplayback');
+        player.stopPlaying();
+        player.reset();
     }
 
     window.setspeed = function(speed) {
         player.setSpeed(speed);
     }
 
+    window.exportgrid = function() {
+
+        let modal = document.getElementById("sharemodal");
+        if (modal.classList.contains('invisible'))
+            modal.classList.remove('invisible')
+
+        let textarea = document.getElementById('presetlinkarea');
+        textarea.value = sharing.export();
+    }
+
+    window.closesharedialog = () => {
+        let modal = document.getElementById("sharemodal");
+
+        if (!modal.classList.contains('invisible'))
+            modal.classList.add('invisible')
+    }   
+
+    window.onclick = (event) => {
+
+        let modal = document.getElementById("sharemodal");
+
+        if (event.target == modal && !modal.classList.contains('invisible')) 
+            modal.classList.add('invisible');
+    }
 
     /* right-side text element language selection */
 
-    let newp = document.createElement('p');
+    /*let newp = document.createElement('p');
     newp.innerText = text_de;
 
     document.getElementById('maintextnode').appendChild(newp);
@@ -71,5 +110,5 @@ window.onload = () => {
 
     window.textselect_en = () => {
         newp.innerText = text_en;
-    }
+    }*/
 }

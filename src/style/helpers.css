@@ -8,6 +8,8 @@
 .center { align-self: center; }
 .spacer { flex-grow: 1; }
 
+.invisible { display: none; }
+
 .m-0 { margin: 0;    }
 .m-1 { margin: 10px; }
 .m-2 { margin: 20px; }

@@ -1,6 +1,18 @@
-<div class="flex col">
-    <div class="flex justify-center mt-2">
+<div class="modal invisible" id="sharemodal">
+    <div class="modal-content px-3">
+       <h2>share preset</h2>
+       <textarea class="mb-2" style="width: 100%;" id="presetlinkarea" readonly>
+       </textarea>
+       <div class="flex">
+           <div class="spacer"></div>
+           <button onclick="closesharedialog()">ok</button>
+       </div>
+    </div>
+</div>
+<div class="flex col align-center justify-center">
+    <div class="flex mt-2 center" style="width: fit-content;">
         <div class="flex col px-1 py-2 mr-2 bg-white">
+            <button onclick="clearcells()" class="mb-2">clear</button>
             <button onclick="resetcells()" class="mb-2">reset</button>
             <div class="select-wrapper mb-2">
                 <select>
@@ -11,18 +23,22 @@
             <button onclick="toggleplaymode()" class="mb-2 b-toggle-on" id="constrainbutton">
                 constrain
             </button>
+            <div class="spacer"></div>
+            <button onclick="exportgrid()">
+                share
+            </button>
         </div>
         <div>
             <div class="grid-container bg-white px-2 py-2" id="grid"></div>
             <div class="grid-footer flex bg-white px-2 mt-2">
                 <button onclick="startaudio()" class="mx-2 my-2 center">
-                    <i class="fas fa-play pr-1"></i>Start
+                    <i class="fas fa-play pr-1"></i>start
                 </button>
                 <button onclick="stopplayback()" class="mx-2 my-2 center">
-                    <i class="fas fa-stop pr-1"></i>Stop
+                    <i class="fas fa-stop pr-1"></i>stop
                 </button>
                 <span class="flex row">
-                    <p class="center mx-2 my-2">Speed</p>
+                    <p class="center mx-2 my-2">speed</p>
                     <input
                         class="mx-2 my-2"
                         type="range"
@@ -31,7 +47,7 @@
                 </span>
             </div>
         </div>
-        <div class="flex col px-3 py-3 ml-2 bg-white" style="max-width: 400px">
+        <!--<div class="flex col px-3 py-3 ml-2 bg-white" style="max-width: 400px">
             <div>
                 <h2>TXT</h2>
                 <div id="maintextnode">
@@ -44,6 +60,6 @@
                     <a href="javascript:void(0)" onclick="textselect_de()">de</a>
                 </p>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>

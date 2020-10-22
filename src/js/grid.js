@@ -16,8 +16,6 @@ export default class Grid {
             let row = Math.floor(i / columns);
             let column = Math.floor(i - row * columns);
 
-            console.log(row, column);
-
             let new_element = document.createElement('div');
             new_element.classList.add('grid-item');
 
@@ -45,8 +43,16 @@ export default class Grid {
         });
     }
 
-    killAllCells() {
+    clear() {
         this._cells.forEach(cell => cell.kill());
+    }
+
+    backup() {
+        this._cells.forEach(cell => cell.pushBackup());
+    }
+
+    reset() {
+        this._cells.forEach(cell => cell.popBackup());
     }
 
     /**
@@ -84,6 +90,34 @@ export default class Grid {
     /** @returns {number} */
     rows() {
         return Math.floor(this._cells.length / this._width);;
+    }
+
+    exportGrid() {
+        let data = [];
+        for (let y = 0; y < this.columns(); ++y) {
+            let row = [];
+            for (let x = 0; x < this.rows(); ++x) 
+                row.push(this.cell(y, x).isAlive());
+            data.push(row);
+        }
+        return JSON.stringify(data);
+    }
+
+    /** @param {string} data */
+    importGrid(data) {
+
+        /** @type {Array<Array<boolean>>} */
+        let cdata = JSON.parse(data);
+
+        for (let y = 0; y < cdata.length; ++i) {
+            for (let x = 0; x < cdata[y].length; ++x) {
+                let cell = this.cell(y, x);
+                if (cell) 
+                    cell.setNextState(cdata[y, x]);
+            }
+        }
+
+        this._cells.forEach(cell => cell.commitState());
     }
 
     /** @type {Array<Cell>} */
