@@ -14,6 +14,27 @@ const PlayOptionBits = {
     PALINDROME: 2
 };
 
+
+/*
+    byte    | size  | desc
+    --------------------------------
+    0       | 1     | version
+    1       | 1     | scale
+    2       | 1     | rules
+    3       | 1     | play option bits
+    4       | 4     | (float) playback_speed
+    8       | 4     | (uint32) rows
+    12      | 4     | (uint32) cols
+    16      | (r*c) | data
+
+    play options: 
+    
+    bit     | desc
+    -----------------
+    0       | palindrome
+    1       | constrain
+*/
+
 export default class Sharing {
 
     constructor(player, automata, grid) {
@@ -33,7 +54,22 @@ export default class Sharing {
         let data = new ArrayBuffer(16 + bytes);
         let view = new DataView(data);
 
+        let play_options = 0;
+
+        if (this._player._constrainbutton.get())
+            play_options = setbits(play_options, PlayOptionBits.CONSTRAIN);
+
+        if (this._player._palindromebutton.get())
+            play_options = setbits(play_options, PlayOptionBits.PALINDROME);
+
         view.setUint8(0, PROTOCOL_VERSION);
+
+        view.setUint8(1, this._player._scaleselect.index());
+        view.setUint8(2, this._automata._ruleselect.index());
+        view.setUint8(3, play_options);
+
+        view.setFloat32(4, this._player._speedslider.get());
+
         view.setUint32(8, this._grid.rows());
         view.setUint32(12, this._grid.columns());
 
@@ -46,7 +82,14 @@ export default class Sharing {
                 view.setUint8(16 + byte, setbits(view.getUint8(16 + byte), bit));
         }
 
-        return window.location + "?p=" + base64url.stringify(new Uint8Array(data));
+        let url = new URL(window.location);
+
+        for (let pr of url.searchParams.keys())
+            url.searchParams.delete(pr);
+
+        url.searchParams.append('p', base64url.stringify(new Uint8Array(data)));
+        
+        return url.toString();
     }
 
     import(b64string) 
@@ -62,24 +105,22 @@ export default class Sharing {
         if (!SUPPORTED_PROTOCOL_VERSIONS.includes(version))
             return console.log("Unsupported protocol version");
 
-        let scale = view.getUint8(1);
+        this._player._scaleselect.setIndex(view.getUint8(1));
+        this._automata._ruleselect.setIndex(view.getUint8(2));
 
-        if (scale >= scales.length)
-            return console.log("Value for scale out of range");
-
-        let play_options = view.getUint8(2);
+        let play_options = view.getUint8(3);
 
         if (getbit(play_options, PlayOptionBits.CONSTRAIN))
-            this._player.setPlayMode(PlayMode.CONSTRAINED);
+            this._player._constrainbutton.set(true);
         else
-            this._player.setPlayMode(PlayMode.NORMAL);
+            this._player._constrainbutton.set(false);
 
         if (getbit(play_options, PlayOptionBits.PALINDROME))
-            this._player.enablePalindrome();
+            this._player._palindromebutton.set(true);
         else
-            this._player.disablePalindrome();
+            this._player._palindromebutton.set(false);
 
-        let playback_speed = view.getFloat32(4);
+        this._player._speedslider.set(view.getFloat32(4));
         let rows = view.getUint32(8);
         let cols = view.getUint32(12);
 

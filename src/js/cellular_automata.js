@@ -1,5 +1,14 @@
 import Grid from './grid';
 import Cell from './cell';
+import { Select } from './ui';
+
+const gol_ruletext = `
+<p>if (cell = alive AND neighbours > 3)<br>
+&nbsp;cell = dead<br></p>
+<p>if (cell = alive AND neighbours < 2)<br>
+&nbsp;cell = dead<br></p>
+<p>if (cell = dead AND neighbours = 3)<br>
+&nbsp;cell = alive</p>`;
 
 
 export class Rules {
@@ -53,7 +62,6 @@ export class Rules {
             if (num_ngh_alive < 2)
                 cell.setNextState(false);
 
-            console.log(num_ngh_alive);
         } else {
             if (num_ngh_alive == 3)
                 cell.setNextState(true);
@@ -61,13 +69,26 @@ export class Rules {
     }
 
     /**
-     * 
      * @param {number} row 
      * @param {number} col 
-     * @param {Array<Cell>} cells 
+     * @param {Grid} grid 
      */
-    applyRules(row, col, grid) {
-        this.rule1(row, col, grid);
+    rule2(row, col, grid) {
+        if (Math.random() < 0.15)
+            grid.cell(row, col).setNextState(true);
+        else
+            grid.cell(row, col).setNextState(false);
+    }
+
+    staticRule()
+    {}
+
+    rules() {
+        return [
+            { name: "game of life", ruletext: gol_ruletext, function: this.rule1.bind(this) },
+            { name: "random", ruletext: "this is just here to debug stuff", function: this.rule2.bind(this) },
+            { name: "static", ruletext: "this is just here to debug stuff", function: this.staticRule.bind(this) },
+        ];
     }
 }
 
@@ -77,6 +98,9 @@ export default class Automata {
     constructor(grid) {
         this._grid = grid;
         this._rules = new Rules();
+        this._ruleselect = new Select("ruleselect");
+
+        this._rules.rules().forEach(rule => this._ruleselect.addItem(rule));
     }
 
     /**
@@ -89,9 +113,8 @@ export default class Automata {
     advanceGeneration()
     {
         for (let x = 0; x < this._grid.columns(); ++x) {
-            for (let y = 0; y < this._grid.rows(); ++y) {
-                this._rules.applyRules(y, x, this._grid);
-            }
+            for (let y = 0; y < this._grid.rows(); ++y)
+                this._ruleselect.selected().function(y, x, this._grid);
         }
 
         this._grid._cells.forEach(cell => cell.commitState());
@@ -130,26 +153,8 @@ export default class Automata {
         return -1;
     }
 
-    /*
-        byte    | size  | desc
-        --------------------------------
-        0       | 1     | version
-        1       | 1     | scale
-        2       | 1     | play option bits
-        3       | 1     | reserved
-        4       | 4     | (float) playback_speed
-        8       | 4     | (uint32) rows
-        12      | 4     | (uint32) cols
-        16      | (r*c) | data
-
-        play options: 
-        
-        bit     | desc
-        -----------------
-        0       | palindrome
-        1       | constrain
-    */
-
+    /** @type {Select} */
+    _ruleselect = null;
 
     /** @type {Grid} */
     _grid

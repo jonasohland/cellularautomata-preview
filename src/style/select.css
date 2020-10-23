@@ -1,0 +1,44 @@
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;       /* Remove default arrow */
+    width: 100%;
+    border-radius: 0;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    background-color: transparent;
+    height: 32px;
+    padding-right: 30px;
+    padding-left: 10px;
+    font-family: Inconsolata;
+    font-size: 16px;
+}
+
+select:hover {
+    background-color: black;
+    color: white;
+}
+
+select:focus {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;       /* Remove default arrow */
+    border-radius: 0;
+    border-color: black;
+}
+
+.select-wrapper {
+    position: relative;
+}
+  
+.select-wrapper::before {
+    pointer-events: none;
+    font-family: "Font Awesome 5 Free";
+    content: "\25BC";
+    font-size: 10px;
+    position: absolute;
+    right: 15px;
+    top: 11px;
+    color: inherit;
+}

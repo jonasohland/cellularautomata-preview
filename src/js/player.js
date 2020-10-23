@@ -1,8 +1,7 @@
 import Automata from './cellular_automata';
 import * as Tone from 'tone';
 import scales from '../scales.json'
-
-console.log(scales);
+import { Select, Slider, ToggleButton } from './ui';
 
 export const PlayMode = {
     NORMAL: 0,  
@@ -18,8 +17,6 @@ class Synth {
 
 }
 
-console.log(scales[0]);
-
 export class Player {
 
     /**
@@ -27,7 +24,20 @@ export class Player {
      * @param {Automata} automata 
      */
     constructor(automata) {
+
         this._automata = automata;
+
+        this._constrainbutton = new ToggleButton("constrainbutton");
+        this._palindromebutton = new ToggleButton("palindromebutton");
+
+        this._scaleselect = new Select("scaleselect");
+        this._speedslider = new Slider("speedslider");
+
+        this._speedslider.onchange = (() => {
+            this.setSpeed(this._speedslider.get());
+        }).bind(this);
+
+        scales.forEach(scale => this._scaleselect.addItem(scale));
 
         this._synth = new Tone.Sampler({
             urls: {
@@ -82,7 +92,6 @@ export class Player {
 
     setSpeed(speed) {
         this._tick_time = Math.pow(20, (100 - speed) / 100) * 50;
-        console.log(this._tick_time);
     }
 
     reset()
@@ -93,15 +102,10 @@ export class Player {
     }
 
     _play_cb() {
-
-        console.log("play");
         this._advance_play_head();
 
         let cells_to_play = this._automata._grid.col(this._current_col).filter(cll => cll.isAlive());
-        let notes_to_play = cells_to_play.map(cl => cl.row()).map(num => scales[this._selected_scale].scale[num]);
-
-        console.log(notes_to_play);
-
+        let notes_to_play = cells_to_play.map(cl => cl.row()).map(num => this._scaleselect.selected().scale[num]);
         this._synth.triggerAttackRelease(notes_to_play, 2.);
 
         this._play_timeout = setTimeout(this._play_cb.bind(this), this._tick_time);
@@ -111,9 +115,8 @@ export class Player {
         
         this._clear_play_head();
 
-        if (this._play_mode == PlayMode.CONSTRAINED) {
-
-            if (this._palindrome) {
+        if (this._constrainbutton.get()) {
+            if (this._palindromebutton.get()) {
 
             }
             else {
@@ -157,6 +160,13 @@ export class Player {
         this._automata.advanceGeneration();
     }
 
+
+    /** @type {ToggleButton} */
+    _constrainbutton = null;
+
+    /** @type {ToggleButton} */
+    _palindromebutton = null;
+
     _play_mode = 0;
     _palindrome = 0;
     
@@ -168,10 +178,14 @@ export class Player {
     _current_direction = 1;
     _current_col = 0;
 
+    /** @type {Select} */
+    _scaleselect = null;
+
+    /** @type {Slider} */
+    _speedslider = null;
+
     /** @type {Automata} */
     _automata
 
-    _synth; 
-
-    _selected_scale = 0;
+    _synth;
 }

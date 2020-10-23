@@ -1,6 +1,18 @@
 [
     {
-        "name": "pentatonic minor",
+        "name": "pent minor",
         "scale": ["C3", "Eb3", "F3", "G3", "B3", "C4", "Eb4", "F4", "G4", "B4", "C5", "Eb5", "F5", "G5", "B5"]
+    },
+    {
+        "name": "pent major",
+        "scale": ["G3", "Ab3", "B3", "D3", "E3", "G4", "Ab4", "B4", "D4", "E4", "G5", "Ab5", "B5", "D5", "E5"]
+    },
+    {
+        "name": "ritsusen",
+        "scale": ["D3", "Eb3", "G3", "A3", "B3", "D4", "Eb4", "G4", "A4", "B4", "D5", "Eb5", "G5", "A5", "B5"]
+    },
+    {
+        "name": "chromatic",
+        "scale": ["C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5", "C#5", "D"]
     }
 ]

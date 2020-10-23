@@ -3,14 +3,14 @@ body {
 }
 
 .grid-footer {
-    width: 60vw;
+    width: 58vw;
 }
 
 .grid-container {
 
     --rows: 12;
     --cols: 17;
-    --width: 60vw;
+    --width: 58vw;
     --spacing: 11;
     --percent-unit: 1%;
 

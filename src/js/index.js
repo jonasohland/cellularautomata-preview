@@ -24,27 +24,11 @@ window.onload = () => {
     const player = new Player(automata);
     const sharing = new Sharing(player, automata, grid);
 
-    player.setPlayMode(PlayMode.CONSTRAINED);
-
-    const constrainbutton = document.getElementById('constrainbutton');
-    window.toggleplaymode = () => {
-        if (player.playMode() == PlayMode.NORMAL) {
-            player.setPlayMode(PlayMode.CONSTRAINED);
-            constrainbutton.classList.add('b-toggle-on');
-        }
-        else {
-            player.setPlayMode(PlayMode.NORMAL);
-            if (constrainbutton.classList.contains('b-toggle-on'))
-                constrainbutton.classList.remove('b-toggle-on');
-        }
-    }
-
     let url = new URL(document.URL);
 
     if(url.searchParams.get('p')) {
         sharing.import(url.searchParams.get('p'))
     }
-
 
     /* left-side control elements */
     
@@ -68,10 +52,6 @@ window.onload = () => {
         player.reset();
     }
 
-    window.setspeed = function(speed) {
-        player.setSpeed(speed);
-    }
-
     window.exportgrid = function() {
 
         let modal = document.getElementById("sharemodal");
@@ -89,12 +69,36 @@ window.onload = () => {
             modal.classList.add('invisible')
     }   
 
+    window.showruleinfo = () => {
+        let modal = document.getElementById("rulemodal");
+        let textnode = document.getElementById("rulemodaltext");
+        let titlenode = document.getElementById("rulemodaltitle");
+        
+        textnode.innerHTML = automata._ruleselect.selected().ruletext;
+        titlenode.innerText = automata._ruleselect.selected().name;
+
+        if (modal.classList.contains('invisible'))
+            modal.classList.remove('invisible');
+    }
+
+    window.closerulemodal = () => {
+        let rulemodal = document.getElementById("rulemodal");
+
+        if (!rulemodal.classList.contains('invisible')) 
+            rulemodal.classList.add('invisible');
+    }
+
     window.onclick = (event) => {
 
-        let modal = document.getElementById("sharemodal");
+        let sharemodal = document.getElementById("sharemodal");
 
-        if (event.target == modal && !modal.classList.contains('invisible')) 
-            modal.classList.add('invisible');
+        if (event.target == sharemodal && !sharemodal.classList.contains('invisible')) 
+            sharemodal.classList.add('invisible');
+
+        let rulemodal = document.getElementById("rulemodal");
+
+        if (event.target == rulemodal && !rulemodal.classList.contains('invisible')) 
+            rulemodal.classList.add('invisible');
     }
 
     /* right-side text element language selection */

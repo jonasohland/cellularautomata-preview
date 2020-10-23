@@ -1,6 +1,6 @@
 <div class="modal invisible" id="sharemodal">
     <div class="modal-content px-3">
-       <h2>share preset</h2>
+       <h2>SHARE PRESET</h2>
        <textarea class="mb-2" style="width: 100%;" id="presetlinkarea" readonly>
        </textarea>
        <div class="flex">
@@ -9,19 +9,42 @@
        </div>
     </div>
 </div>
+<div class="modal invisible" id="rulemodal">
+    <div class="modal-content px-3">
+       <div class="flex"><h2>SELECTED RULE</h2><div class="spacer"></div> <h2 id="rulemodaltitle" style="color:darkgray"></h2></div>
+       </textarea>
+       <p id="rulemodaltext"></p>
+       <div class="flex">
+           <div class="spacer"></div>
+           <button onclick="closerulemodal()">close</button>
+       </div>
+    </div>
+</div>
 <div class="flex col align-center justify-center">
     <div class="flex mt-2 center" style="width: fit-content;">
-        <div class="flex col px-1 py-2 mr-2 bg-white">
+        <div class="flex col px-3 py-2 mr-3 bg-white">
+            <h3 class="my-1">GRID</h3>
             <button onclick="clearcells()" class="mb-2">clear</button>
             <button onclick="resetcells()" class="mb-2">reset</button>
+            <h3 class="my-1">RULES</h3>
+            <div class="flex">
             <div class="select-wrapper mb-2">
-                <select>
-                    <option value="0">Rule 1</option>
-                    <option value="1">Rule 2</option>
+                <select id="ruleselect">
                 </select>
             </div>
-            <button onclick="toggleplaymode()" class="mb-2 b-toggle-on" id="constrainbutton">
+            <button class="ml-1" onclick="showruleinfo()">?</button>
+            </div>
+            <h3 class="my-1">SCALE</h3>
+            <div class="select-wrapper mb-2">
+                <select id="scaleselect">
+                </select>
+            </div>
+            <h3 class="my-1">PLAYER</h3>
+            <button class="mb-2 b-toggle-on" id="constrainbutton">
                 constrain
+            </button>
+            <button class="mb-2 b-toggle-on" id="palindromebutton">
+                palindrome
             </button>
             <div class="spacer"></div>
             <button onclick="exportgrid()">
@@ -29,9 +52,9 @@
             </button>
         </div>
         <div>
-            <div class="grid-container bg-white px-2 py-2" id="grid"></div>
-            <div class="grid-footer flex bg-white px-2 mt-2">
-                <button onclick="startaudio()" class="mx-2 my-2 center">
+            <div class="grid-container bg-white px-3 py-3" id="grid"></div>
+            <div class="grid-footer flex bg-white px-3 mt-3">
+                <button onclick="startaudio()" class="mr-2 my-2 center">
                     <i class="fas fa-play pr-1"></i>start
                 </button>
                 <button onclick="stopplayback()" class="mx-2 my-2 center">
@@ -42,9 +65,15 @@
                     <input
                         class="mx-2 my-2"
                         type="range"
-                        oninput="setspeed(this.value)"
+                        id="speedslider"
                     />
                 </span>
+                <div class="spacer">
+
+                </div>
+                <button class="ml-2 my-2 center">
+                    <i class="fas fa-info-circle pr-1"></i> info
+                </button>
             </div>
         </div>
         <!--<div class="flex col px-3 py-3 ml-2 bg-white" style="max-width: 400px">

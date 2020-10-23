@@ -3,6 +3,9 @@ p { font-family: Inconsolata; }
 h1 { font-family: Inconsolata; }
 h2 { font-family: Inconsolata; }
 h3 { font-family: Inconsolata; }
+h4 { font-family: Inconsolata; }
+h5 { font-family: Inconsolata; }
+h6 { font-family: Inconsolata; }
 
 a { color: darkgray }
 
@@ -24,41 +27,6 @@ a { color: darkgray }
     padding: 20px;
     width: 600px;
     border: 1px solid #888;
-}
-
-button {
-    background-color: transparent;
-    border-width: 2px;
-    border-color: black;
-    border-style: solid;
-    color: black;
-    padding-right: 10px;
-    padding-left: 10px;
-    margin-left: 0;
-    margin-right: 0;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    height: 32px;
-    font-family: Inconsolata;
-}
-
-button:hover {
-    background-color: black;
-    border-color: transparent;
-    color: white;
-}
-
-button:active {
-    background-color: rgb(255, 208, 0);
-}
-
-button:focus {
-    outline: 0;
-}
-
-.b-toggle-on {
-    background-color: rgb(255, 208, 0);
 }
 
 input[type='range'] {
@@ -83,7 +51,7 @@ input[type='range']::-webkit-slider-thumb {
     width: 10px;
     height: 28px;
     background: black;
-    box-shadow: -100px 0 0 100px rgba(255, 120, 58, 0.425);
+    box-shadow: -100px 0 0 100px rgb(255, 200, 179);
     cursor: ew-resize;
     outline: none;
     border-radius: 0%;
@@ -95,7 +63,7 @@ input[type='range']::-moz-range-thumb {
     width: 10px;
     height: 28px;
     background: black;
-    box-shadow: -100px 0 0 100px rgba(255, 120, 58, 0.425);
+    box-shadow: -100px 0 0 100px rgb(255, 200, 179);
     cursor: ew-resize;
     border-radius: 0%;
     border-style: solid;
@@ -105,24 +73,7 @@ input[type='range']::-moz-range-thumb {
 
 
 input[type="range"]::-moz-range-progress {
-    background-color: rgba(255, 120, 58, 0.425); 
-}
-
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;       /* Remove default arrow */
-    width: 100%;
-    border-radius: 0;
-    border-width: 2px;
-    border-color: black;
-    border-style: solid;
-    background-color: transparent;
-    height: 32px;
-    padding-right: 10px;
-    padding-left: 10px;
-    font-family: Inconsolata;
-    font-size: 16px;
+    background-color: rgb(255, 200, 179); 
 }
 
 textarea {
@@ -137,30 +88,3 @@ textarea:focus {
     outline: 0;
 }
 
-select:hover {
-    background-color: black;
-    color: white;
-}
-
-select:focus {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;       /* Remove default arrow */
-    border-radius: 0;
-    border-color: black;
-}
-
-.select-wrapper {
-    position: relative;
-}
-  
-.select-wrapper::before {
-    pointer-events: none;
-    font-family: "Font Awesome 5 Free";
-    content: "\25BC";
-    font-size: 10px;
-    position: absolute;
-    right: 15px;
-    top: 11px;
-    color: inherit;
-}
