@@ -117,7 +117,7 @@ export class Player {
 
         if (this._constrainbutton.get()) {
             if (this._palindromebutton.get()) {
-
+                
             }
             else {
                 // next alive cells ahead
@@ -126,8 +126,9 @@ export class Player {
                 else {
                     let first_alive = this._automata.nextColWithAliveCells(0);
                     if (first_alive != -1) {
-                        this._current_col = first_alive;
                         this._gen_loop();
+                        this._current_col = this._automata.nextColWithAliveCells(0);
+                        
                     }
                     else
                         this._advance_play_head_default();

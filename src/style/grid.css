@@ -1,24 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: black;
 }
 
 .grid-footer {
-    width: 45vw;
+
+    --rows: 12;
+    --cols: 17;
+    --height: calc(100vmin - 70px - 72px - 35px);
+
+    
+    width: calc(var(--cols) / var(--rows) * var(--height));
 }
 
 .grid-container {
 
     --rows: 12;
     --cols: 17;
-    --width: 45vw;
+    --height: calc(100vmin - 70px - 72px - 35px);
     --spacing: 11;
     --percent-unit: 1%;
 
     display: grid;
+
+    margin: 0;
     
-    width: var(--width);
-    height: calc(var(--rows) / var(--cols) * var(--width));
-    /* height: 90vh; */
+    width: calc(var(--cols) / var(--rows) * var(--height));
+    height: var(--height);
     
     grid-template-rows: repeat(var(--rows), calc((100 - var(--spacing)) / var(--rows) * var(--percent-unit)));
     grid-template-columns: repeat(var(--cols), calc((100 - var(--spacing)) / var(--cols) * var(--percent-unit)));

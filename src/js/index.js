@@ -12,7 +12,7 @@ import 'inconsolata-fontface';
 import Automata from './cellular_automata';
 import Sharing from './sharing';
 
-import { Player, PlayMode } from './player'
+import { Player } from './player'
 
 window.onload = () => {
 
